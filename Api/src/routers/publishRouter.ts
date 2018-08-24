@@ -39,10 +39,15 @@ class publishRouter {
         const streamKey: string = req.body.name;
 
         // Set the stream offline
-        User.findOneAndUpdate({ streamKey }, { "streaming.live": false });
-
-        // Don't really have to send this
-        res.sendStatus(200);
+        User.findOneAndUpdate({ streamKey }, { "streaming.live": false })
+            .then((data) => {
+                // Don't really have to send this
+                res.sendStatus(200);
+            })
+            .catch((err) => {
+                console.log("How did we get in here?");
+                res.sendStatus(418);
+            });
     }
 
     routes() {
