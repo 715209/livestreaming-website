@@ -37,9 +37,9 @@ class userRouter {
      * getUser
      */
     public getUser(req: Request, res: Response): void {
-        const id: string = req.params.id;
+        const _id: string = req.params.id;
 
-        User.findOne({ id })
+        User.findOne({ _id })
             .then((data) => {
                 const status = res.statusCode;
 
