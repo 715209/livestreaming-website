@@ -23,7 +23,8 @@ class publishRouter {
                     res.set('location', data.username);
                     res.status(302).send()
                 } else {
-                    res.sendStatus(418);
+                    // res.sendStatus(418);
+                    res.status(418).send("I'm a honeypot Kappa");
                 }
             })
             .catch((err) => {
