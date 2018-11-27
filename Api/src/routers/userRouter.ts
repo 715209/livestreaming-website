@@ -99,9 +99,9 @@ class userRouter {
      * updateUser
      */
     public updateUser(req: Request, res: Response): void {
-        const id: string = req.params.id;
+        const _id: string = req.params.id;
 
-        User.findOneAndUpdate({ id }, req.body)
+        User.findOneAndUpdate({ _id }, req.body)
             .then((data) => {
                 const status = res.statusCode;
 
