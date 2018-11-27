@@ -18,7 +18,7 @@ class publishRouter {
         // Should return 2xx to allow, 3xx to redirect, anything else to deny.
         // Check if streamkey exists.
         User.findOneAndUpdate({ streamKey }, { "streaming.live": true })
-            .then((data) => {
+            .then((data: any) => {
                 if (data !== null) {
                     res.set('location', data.username);
                     res.status(302).send()
