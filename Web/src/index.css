@@ -8,7 +8,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+nav ul {
+  list-style: none;
+}
+
+nav li {
+  display: inline;
+  padding-right: 20px;
+}
+
+nav a {
+  text-decoration: none;
+}
+
+#root {
+  display: grid;
+  min-height: 100vh;
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr;
+  background-color: #ebc3ff;
+  grid-template-areas:
+    "navbar"
+    "main";
 }
