@@ -30,7 +30,7 @@ class Player extends Component {
     const style = {
       width: "100%",
       height: "100%",
-      "background-color": "#000000"
+      background: "#000000"
     };
 
     return (
