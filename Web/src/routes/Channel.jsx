@@ -20,15 +20,13 @@ class Channel extends Component {
   render() {
     return (
       <AppGrid>
-        <Player>
-          <p>Player</p>
-        </Player>
+        <Player channelName={this.props.match.params.id} />
         <Info>
           <p>Channel {this.props.match.params.id}</p>
         </Info>
         <Chat>
-          <div class="messages">
-            <ul class="message-list">
+          <div className="messages">
+            <ul className="message-list">
               <li>
                 <p>Hello</p>
               </li>
@@ -40,7 +38,7 @@ class Channel extends Component {
               </li>
             </ul>
           </div>
-          <div class="input">
+          <div className="input">
             <input type="text" />
             <input type="submit" value="Submit" />
           </div>
