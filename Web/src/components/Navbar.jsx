@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const HeaderStyle = styled.header`
-  background-color: red;
+  background-color: #1a1a1d;
   grid-area: navbar;
 `;
 

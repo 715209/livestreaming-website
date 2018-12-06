@@ -8,7 +8,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-nav ul {
+ul {
   list-style: none;
 }
 
@@ -19,6 +19,7 @@ nav li {
 
 nav a {
   text-decoration: none;
+  color: #ffffff;
 }
 
 #root {
@@ -26,7 +27,7 @@ nav a {
   min-height: 100vh;
   grid-template-columns: auto;
   grid-template-rows: auto 1fr;
-  background-color: #ebc3ff;
+  background-color: #1a1a1d;
   grid-template-areas:
     "navbar"
     "main";
