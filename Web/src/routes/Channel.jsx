@@ -9,7 +9,6 @@ const AppGrid = styled.main`
   display: grid;
   grid-template-columns: auto 350px;
   grid-template-rows: 1fr auto;
-  background-color: green;
   grid-template-areas:
     "player chat"
     "info chat";
@@ -17,32 +16,48 @@ const AppGrid = styled.main`
 `;
 
 class Channel extends Component {
+  state = {
+    loading: true,
+    username: "",
+    channel: null,
+    isMuted: true
+  };
+
+  async componentDidMount() {
+    const url = `localhost:3001/v1/users/${this.props.match.params.id}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data);
+
+    if (data.data) {
+      const { username, channel } = data.data;
+
+      this.setState({
+        loading: false,
+        username,
+        channel
+      });
+    } else {
+      this.setState({
+        loading: false
+      });
+    }
+  }
+
   render() {
+    if (this.state.loading) {
+      return <h1>Loading...</h1>;
+    }
+
+    if (!this.state.username) {
+      return <h1>Channel {this.props.match.params.id} does not exist</h1>;
+    }
+
     return (
       <AppGrid>
-        <Player channelName={this.props.match.params.id} />
-        <Info>
-          <p>Channel {this.props.match.params.id}</p>
-        </Info>
-        <Chat>
-          <div className="messages">
-            <ul className="message-list">
-              <li>
-                <p>Hello</p>
-              </li>
-              <li>
-                <p>Hello</p>
-              </li>
-              <li>
-                <p>Hello</p>
-              </li>
-            </ul>
-          </div>
-          <div className="input">
-            <input type="text" />
-            <input type="submit" value="Submit" />
-          </div>
-        </Chat>
+        <Player data={this.state} />
+        <Info data={this.state} />
+        <Chat />
       </AppGrid>
     );
   }
