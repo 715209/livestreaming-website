@@ -3,155 +3,156 @@ import User from "../models/user";
 import * as uid from "uid-safe";
 
 class userRouter {
-    router: Router;
+  router: Router;
 
-    constructor() {
-        this.router = Router();
-        this.routes();
-    }
+  constructor() {
+    this.router = Router();
+    this.routes();
+  }
 
-    /**
-     * getUsers
-     */
-    public getUsers(req: Request, res: Response): void {
-        User.find({})
-            .then((data) => {
-                const status = res.statusCode;
+  /**
+   * getUsers
+   */
+  public getUsers(req: Request, res: Response): void {
+    User.find({})
+      .then(data => {
+        const status = res.statusCode;
 
-                res.json({
-                    status,
-                    data
-                });
-            })
-            .catch((err) => {
-                const status = res.statusCode;
-
-                res.json({
-                    status,
-                    err
-                })
-            });
-    }
-
-    /**
-     * getUser
-     */
-    public getUser(req: Request, res: Response): void {
-        const _id: string = req.params.id;
-
-        User.findOne({ _id })
-            .then((data) => {
-                const status = res.statusCode;
-
-                res.json({
-                    status,
-                    data
-                });
-            })
-            .catch((err) => {
-                const status = res.statusCode;
-
-                res.json({
-                    status,
-                    err
-                })
-            });
-    }
-
-    /**
-     * createUser
-     */
-    public createUser(req: Request, res: Response): void {
-        const username: string = req.body.username;
-        const password: string = req.body.password;
-        const email: string = req.body.email;
-        const streamKey: string = uid.sync(39);
-        const admin: boolean = req.body.admin;
-
-        const user = new User({
-            username,
-            password,
-            email,
-            streamKey,
-            admin
+        res.json({
+          status,
+          data
         });
+      })
+      .catch(err => {
+        const status = res.statusCode;
 
-        user.save()
-            .then((data) => {
-                const status = res.statusCode;
+        res.json({
+          status,
+          err
+        });
+      });
+  }
 
-                res.json({
-                    status,
-                    data
-                });
-            })
-            .catch((err) => {
-                const status = res.statusCode;
+  /**
+   * getUser
+   */
+  public getUser(req: Request, res: Response): void {
+    const username: string = req.params.username;
 
-                res.json({
-                    status,
-                    err
-                })
-            });
-    }
+    User.findOne({ username })
+      .then(data => {
+        const status = res.statusCode;
 
-    /**
-     * updateUser
-     */
-    public updateUser(req: Request, res: Response): void {
-        const _id: string = req.params.id;
+        res.json({
+          status,
+          data
+        });
+      })
+      .catch(err => {
+        const status = res.statusCode;
 
-        User.findOneAndUpdate({ _id }, req.body)
-            .then((data) => {
-                const status = res.statusCode;
+        res.json({
+          status,
+          err
+        });
+      });
+  }
 
-                res.json({
-                    status,
-                    data
-                });
-            })
-            .catch((err) => {
-                const status = res.statusCode;
+  /**
+   * createUser
+   */
+  public createUser(req: Request, res: Response): void {
+    const username: string = req.body.username;
+    const password: string = req.body.password;
+    const email: string = req.body.email;
+    const streamKey: string = uid.sync(39);
+    const admin: boolean = req.body.admin;
 
-                res.json({
-                    status,
-                    err
-                })
-            });
-    }
+    const user = new User({
+      username,
+      password,
+      email,
+      streamKey,
+      admin
+    });
 
-    /**
-     * deleteUser
-     */
-    public deleteUser(req: Request, res: Response): void {
-        const _id: string = req.params.id;
+    user
+      .save()
+      .then(data => {
+        const status = res.statusCode;
 
-        User.findOneAndRemove({ _id })
-            .then((data) => {
-                const status = res.statusCode;
+        res.json({
+          status,
+          data
+        });
+      })
+      .catch(err => {
+        const status = res.statusCode;
 
-                res.json({
-                    status,
-                    data
-                });
-            })
-            .catch((err) => {
-                const status = res.statusCode;
+        res.json({
+          status,
+          err
+        });
+      });
+  }
 
-                res.json({
-                    status,
-                    err
-                })
-            });
-    }
+  /**
+   * updateUser
+   */
+  public updateUser(req: Request, res: Response): void {
+    const username: string = req.params.username;
 
-    routes() {
-        this.router.get("/", this.getUsers);
-        this.router.get("/:id", this.getUser);
-        this.router.post("/", this.createUser);
-        this.router.put("/:id", this.updateUser);
-        this.router.delete("/:id", this.deleteUser);
-    }
+    User.findOneAndUpdate({ username }, req.body)
+      .then(data => {
+        const status = res.statusCode;
+
+        res.json({
+          status,
+          data
+        });
+      })
+      .catch(err => {
+        const status = res.statusCode;
+
+        res.json({
+          status,
+          err
+        });
+      });
+  }
+
+  /**
+   * deleteUser
+   */
+  public deleteUser(req: Request, res: Response): void {
+    const username: string = req.params.username;
+
+    User.findOneAndRemove({ username })
+      .then(data => {
+        const status = res.statusCode;
+
+        res.json({
+          status,
+          data
+        });
+      })
+      .catch(err => {
+        const status = res.statusCode;
+
+        res.json({
+          status,
+          err
+        });
+      });
+  }
+
+  routes() {
+    this.router.get("/", this.getUsers);
+    this.router.get("/:username", this.getUser);
+    this.router.post("/", this.createUser);
+    this.router.put("/:username", this.updateUser);
+    this.router.delete("/:username", this.deleteUser);
+  }
 }
 
 const userRoutes = new userRouter();
