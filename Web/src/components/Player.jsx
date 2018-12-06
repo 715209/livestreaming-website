@@ -4,7 +4,7 @@ import Hls from "hls.js";
 
 const PlayerStyle = styled.div`
   // grid-area: 2 / 1 / 4 / 4;
-  background-color: orange;
+  // background-color: orange;
   grid-area: player;
 
   display: grid;
@@ -14,9 +14,9 @@ const PlayerStyle = styled.div`
 class Player extends Component {
   componentDidMount = () => {
     if (Hls.isSupported() && this.videoPlayer) {
-      const hls = new Hls();
+      const hls = new Hls({ liveDurationInfinity: true });
       const video = this.videoPlayer;
-      const url = "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8";
+      const url = `localhost:3002/hls/${this.props.data.username}.m3u8`;
 
       hls.loadSource(url);
       hls.attachMedia(video);
@@ -38,6 +38,7 @@ class Player extends Component {
         <video
           ref={videoPlayer => (this.videoPlayer = videoPlayer)}
           autoPlay={true}
+          muted={this.props.data.isMuted}
           style={style}
         />
       </PlayerStyle>
