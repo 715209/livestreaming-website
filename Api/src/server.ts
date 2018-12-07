@@ -32,31 +32,31 @@ class Server {
       }
     );
 
-    mongoose.connection.on("error", function(e) {
+    mongoose.connection.on("error", e => {
       console.log(`Mongodb error ${e}`);
     });
 
-    mongoose.connection.on("connected", function(e) {
+    mongoose.connection.on("connected", e => {
       console.log("Mongodb connected");
     });
 
-    mongoose.connection.on("disconnecting", function() {
+    mongoose.connection.on("disconnecting", () => {
       console.log("Mongodb disconnecting");
     });
 
-    mongoose.connection.on("disconnected", function() {
+    mongoose.connection.on("disconnected", () => {
       console.log("Mongodb disconnected");
     });
 
-    mongoose.connection.on("reconnected", function() {
+    mongoose.connection.on("reconnected", () => {
       console.log("Mongodb reconnected");
     });
 
-    mongoose.connection.on("timeout", function(e) {
+    mongoose.connection.on("timeout", e => {
       console.log(`Mongodb timeout ${e}`);
     });
 
-    mongoose.connection.on("close", function() {
+    mongoose.connection.on("close", () => {
       console.log("Mongodb connection closed");
     });
 
