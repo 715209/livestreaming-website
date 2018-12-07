@@ -2,11 +2,8 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 const InfoStyle = styled.div`
-  //   display: grid;
-  //   grid-template-columns: 1fr 1fr 1fr;
-  //   grid-template-rows: 1fr 1fr;
-  //   grid-area: 4 / 1 / 5 / 4;
-  // background-color: #b82601;
+  background-color: #3c4f76;
+  color: #e8e9f3;
   grid-area: info;
 `;
 

@@ -1,37 +1,24 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+import Message from "./Message";
+// import Input from "./Input";
+
 const ChatStyle = styled.div`
-  // background-color: #062f4f;
+  background-color: #354463;
   grid-area: chat;
   display: grid;
   grid-template-rows: 1fr auto;
+  box-shadow: -1px 0px 0 rgba(0, 0, 0, 0.2), -2px 0px 0 rgba(0, 0, 0, 0.06);
+  z-index: 99;
 `;
 
 class Chat extends Component {
   render() {
     return (
       <ChatStyle>
-        <div className="messages">
-          <ul className="message-list">
-            <li>
-              <p>Hello</p>
-            </li>
-            <li>
-              <p>Hello</p>
-            </li>
-            <li>
-              <p>Hello</p>
-            </li>
-            <li>
-              <p>This doesn't work</p>
-            </li>
-          </ul>
-        </div>
-        <div className="input">
-          <input type="text" />
-          <input type="submit" value="Submit" />
-        </div>
+        <Message />
+        {/* <Input /> */}
       </ChatStyle>
     );
   }

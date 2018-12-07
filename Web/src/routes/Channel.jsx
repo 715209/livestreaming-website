@@ -13,20 +13,21 @@ const AppGrid = styled.main`
     "player chat"
     "info chat";
   grid-area: main;
+  overflow: hidden;
 `;
 
 class Channel extends Component {
   state = {
     loading: true,
     username: "",
-    channel: null,
-    isMuted: true
+    channel: null
   };
 
-  async componentDidMount() {
-    const url = `localhost:3001/v1/users/${this.props.match.params.id}`;
+  async grabChannelData() {
+    const url = `http://localhost:3001/v1/users/${this.props.match.params.id}`;
     const response = await fetch(url);
     const data = await response.json();
+
     console.log(data);
 
     if (data.data) {
@@ -42,6 +43,15 @@ class Channel extends Component {
         loading: false
       });
     }
+  }
+
+  componentDidMount() {
+    this.grabChannelData();
+    this.interval = setInterval(() => this.grabChannelData(), 10000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render() {
