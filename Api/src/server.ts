@@ -24,8 +24,41 @@ class Server {
 
     mongoose.connect(
       MONGO_URI || process.env.MONGODB_URI,
-      { useNewUrlParser: true }
+      {
+        useNewUrlParser: true,
+        autoReconnect: true,
+        reconnectTries: 200,
+        reconnectInterval: 2000
+      }
     );
+
+    mongoose.connection.on("error", function(e) {
+      console.log(`Mongodb error ${e}`);
+    });
+
+    mongoose.connection.on("connected", function(e) {
+      console.log("Mongodb connected");
+    });
+
+    mongoose.connection.on("disconnecting", function() {
+      console.log("Mongodb disconnecting");
+    });
+
+    mongoose.connection.on("disconnected", function() {
+      console.log("Mongodb disconnected");
+    });
+
+    mongoose.connection.on("reconnected", function() {
+      console.log("Mongodb reconnected");
+    });
+
+    mongoose.connection.on("timeout", function(e) {
+      console.log(`Mongodb timeout ${e}`);
+    });
+
+    mongoose.connection.on("close", function() {
+      console.log("Mongodb connection closed");
+    });
 
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(bodyParser.json());
