@@ -6,14 +6,32 @@ import Chat from "../components/Chat";
 import Info from "../components/Info";
 
 const AppGrid = styled.main`
+  // display: grid;
+  // grid-template-columns: auto 350px;
+  // grid-template-rows: 1fr auto;
+  // grid-template-areas:
+  //   "player chat"
+  //   "info chat";
+  // grid-area: main;
+  // overflow: hidden;
+
   display: grid;
-  grid-template-columns: auto 350px;
-  grid-template-rows: 1fr auto;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr;
   grid-template-areas:
-    "player chat"
-    "info chat";
+    "player"
+    "info"
+    "chat";
   grid-area: main;
   overflow: hidden;
+
+  @media (min-width: 800px) {
+    grid-template-columns: auto 350px;
+    grid-template-rows: 1fr auto;
+    grid-template-areas:
+      "player chat"
+      "info chat";
+  }
 `;
 
 class Channel extends Component {
@@ -47,7 +65,7 @@ class Channel extends Component {
 
   componentDidMount() {
     this.grabChannelData();
-    this.interval = setInterval(() => this.grabChannelData(), 10000);
+    this.interval = setInterval(() => this.grabChannelData(), 15000);
   }
 
   componentWillUnmount() {
