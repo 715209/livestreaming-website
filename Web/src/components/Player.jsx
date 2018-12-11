@@ -194,10 +194,10 @@ class Player extends Component {
   handleMouseMove = () => {
     clearTimeout(this.interval);
 
-    this.interval = setTimeout(() => {
-      this.setState({ showControls: false });
-      console.log("LOLILULLULUL");
-    }, 5000);
+    this.interval = setTimeout(
+      () => this.setState({ showControls: false }),
+      5000
+    );
 
     this.setState({ showControls: true });
   };
