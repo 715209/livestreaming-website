@@ -9,6 +9,8 @@ import * as cors from "cors";
 // Import routers
 import userRouter from "./routers/userRouter";
 import publishRouter from "./routers/publishRouter";
+import authRouter from "./routers/authRouter";
+
 // Server class
 class Server {
   public app: express.Application;
@@ -76,6 +78,7 @@ class Server {
     this.app.use("/", router);
     this.app.use("/v1/publish", publishRouter);
     this.app.use("/v1/users", userRouter);
+    this.app.use("/v1/auth", authRouter);
   }
 }
 

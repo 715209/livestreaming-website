@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from "express";
 import User from "../models/user";
 import * as uid from "uid-safe";
+import auth from "../Middlewares/authenticate";
 
 class userRouter {
   router: Router;
@@ -147,11 +148,11 @@ class userRouter {
   }
 
   routes() {
-    this.router.get("/", this.getUsers);
+    this.router.get("/", auth, this.getUsers);
     this.router.get("/:username", this.getUser);
     this.router.post("/", this.createUser);
-    this.router.put("/:username", this.updateUser);
-    this.router.delete("/:username", this.deleteUser);
+    this.router.put("/:username", auth, this.updateUser);
+    this.router.delete("/:username", auth, this.deleteUser);
   }
 }
 

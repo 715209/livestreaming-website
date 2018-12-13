@@ -19,7 +19,8 @@ let userSchema: Schema = new Schema(
       type: String,
       default: "",
       unique: true,
-      required: true
+      required: true,
+      select: false
     },
     streamKey: {
       type: String,
