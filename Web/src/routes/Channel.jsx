@@ -6,15 +6,6 @@ import Chat from "../components/Chat";
 import Info from "../components/Info";
 
 const AppGrid = styled.main`
-  // display: grid;
-  // grid-template-columns: auto 350px;
-  // grid-template-rows: 1fr auto;
-  // grid-template-areas:
-  //   "player chat"
-  //   "info chat";
-  // grid-area: main;
-  // overflow: hidden;
-
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto 1fr;
@@ -42,7 +33,9 @@ class Channel extends Component {
   };
 
   async grabChannelData() {
-    const url = `http://localhost:3001/v1/users/${this.props.match.params.id}`;
+    const url = `${process.env.REACT_APP_API}/v1/users/${
+      this.props.match.params.id
+    }`;
     const response = await fetch(url);
     const data = await response.json();
 
