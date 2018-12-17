@@ -123,7 +123,7 @@ class userRouter {
           });
         });
     } else {
-      res.status(401).json({ errors: "Unauthorized" });
+      res.status(403).json({ errors: "Unauthorized" });
     }
   }
 
@@ -152,7 +152,7 @@ class userRouter {
           });
         });
     } else {
-      res.status(401).json({ errors: "Unauthorized" });
+      res.status(403).json({ errors: "Unauthorized" });
     }
   }
 
