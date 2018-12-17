@@ -5,6 +5,7 @@ import * as logger from "morgan";
 import * as helmet from "helmet";
 import * as compression from "compression";
 import * as cors from "cors";
+import * as session from "express-session";
 
 // Import routers
 import userRouter from "./routers/userRouter";
@@ -68,6 +69,20 @@ class Server {
     this.app.use(logger("dev"));
     this.app.use(compression());
     this.app.use(cors());
+    this.app.use(
+      session({
+        // store: TODO
+        name: "sid",
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+          secure: !!+process.env.COOKIE_SECURE,
+          maxAge: +process.env.COOKIE_MAXAGE,
+          httpOnly: true
+        }
+      })
+    );
   }
 
   public routes(): void {

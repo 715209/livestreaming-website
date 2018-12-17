@@ -1,20 +1,18 @@
-import * as jwt from "jsonwebtoken";
+import User from "../models/user";
 
 export default (req, res, next) => {
-  const header = req.headers.authorization;
-  let token;
-
-  if (header) token = header.split(" ")[1];
-
-  if (token) {
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) {
-        res.status(401).json({ errors: "Invalid token" });
-      } else {
-        next();
-      }
-    });
+  if (!req.session.userId) {
+    res.status(401).json({ errors: "Invalid token" });
   } else {
-    res.status(401).json({ errors: "No token" });
+    User.findById(req.session.userId)
+      .select("admin username")
+      .then((data: any) => {
+        res.locals.isAdmin = data.admin;
+        res.locals.username = data.username;
+        next();
+      })
+      .catch(err => {
+        console.log("How did we get here", err);
+      });
   }
 };

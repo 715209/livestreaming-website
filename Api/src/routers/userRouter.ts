@@ -64,7 +64,7 @@ class userRouter {
    */
   public createUser(req: Request, res: Response): void {
     const username: string = req.body.username;
-    const password: string = req.body.password;
+    const password: string = req.body.password; // TODO hash or something
     const email: string = req.body.email;
     const streamKey: string = uid.sync(39);
     const admin: boolean = req.body.admin;
@@ -99,27 +99,32 @@ class userRouter {
 
   /**
    * updateUser
+   * TODO: Should probably disallow to change like their id
    */
   public updateUser(req: Request, res: Response): void {
     const username: string = req.params.username;
 
-    User.findOneAndUpdate({ username }, req.body)
-      .then(data => {
-        const status = res.statusCode;
+    if (res.locals.isAdmin || username === res.locals.username) {
+      User.findOneAndUpdate({ username }, req.body)
+        .then(data => {
+          const status = res.statusCode;
 
-        res.json({
-          status,
-          data
-        });
-      })
-      .catch(err => {
-        const status = res.statusCode;
+          res.json({
+            status,
+            data
+          });
+        })
+        .catch(err => {
+          const status = res.statusCode;
 
-        res.json({
-          status,
-          err
+          res.json({
+            status,
+            err
+          });
         });
-      });
+    } else {
+      res.status(401).json({ errors: "Unauthorized" });
+    }
   }
 
   /**
@@ -128,27 +133,31 @@ class userRouter {
   public deleteUser(req: Request, res: Response): void {
     const username: string = req.params.username;
 
-    User.findOneAndRemove({ username })
-      .then(data => {
-        const status = res.statusCode;
+    if (res.locals.isAdmin || username === res.locals.username) {
+      User.findOneAndRemove({ username })
+        .then(data => {
+          const status = res.statusCode;
 
-        res.json({
-          status,
-          data
-        });
-      })
-      .catch(err => {
-        const status = res.statusCode;
+          res.json({
+            status,
+            data
+          });
+        })
+        .catch(err => {
+          const status = res.statusCode;
 
-        res.json({
-          status,
-          err
+          res.json({
+            status,
+            err
+          });
         });
-      });
+    } else {
+      res.status(401).json({ errors: "Unauthorized" });
+    }
   }
 
   routes() {
-    this.router.get("/", auth, this.getUsers);
+    this.router.get("/", this.getUsers);
     this.router.get("/:username", this.getUser);
     this.router.post("/", this.createUser);
     this.router.put("/:username", auth, this.updateUser);

@@ -1,6 +1,5 @@
 import { Router, Request, Response, NextFunction } from "express";
 import User from "../models/user";
-import * as jwt from "jsonwebtoken";
 
 class authRouter {
   router: Router;
@@ -20,20 +19,9 @@ class authRouter {
     User.findOne({ username })
       .select("username admin password")
       .then((data: any) => {
-        const status = res.statusCode;
-
         if (data.password === password) {
-          jwt.sign(
-            { username: data.username, admin: data.admin },
-            process.env.JWT_SECRET,
-            { expiresIn: "30d" },
-            (err, token) => {
-              res.json({
-                status,
-                token
-              });
-            }
-          );
+          req.session.userId = data._id;
+          res.sendStatus(200);
         } else {
           res.status(401).json({ errors: "Invalid username or password" });
         }
