@@ -5,7 +5,7 @@ const InputStyle = styled.div`
   background-color: #354463;
 `;
 
-class Chat extends Component {
+class Input extends Component {
   render() {
     return (
       <InputStyle className="input">
@@ -15,4 +15,4 @@ class Chat extends Component {
   }
 }
 
-export default Chat;
+export default Input;
