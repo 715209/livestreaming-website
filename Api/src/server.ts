@@ -68,7 +68,7 @@ class Server {
     this.app.use(helmet());
     this.app.use(logger("dev"));
     this.app.use(compression());
-    this.app.use(cors());
+    this.app.use(cors({ origin: process.env.DOMAIN, credentials: true }));
     this.app.use(
       session({
         // store: TODO

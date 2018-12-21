@@ -60,6 +60,31 @@ class userRouter {
   }
 
   /**
+   * getCurrentUser
+   */
+  public getCurrentUser(req: Request, res: Response): void {
+    const username: string = res.locals.username;
+
+    User.findOne({ username })
+      .then(data => {
+        const status = res.statusCode;
+
+        res.json({
+          status,
+          data
+        });
+      })
+      .catch(err => {
+        const status = res.statusCode;
+
+        res.json({
+          status,
+          err
+        });
+      });
+  }
+
+  /**
    * createUser
    */
   public createUser(req: Request, res: Response): void {
@@ -82,15 +107,16 @@ class userRouter {
       .then(data => {
         const status = res.statusCode;
 
+        req.session.userId = data._id;
         res.json({
           status,
           data
         });
       })
       .catch(err => {
-        const status = res.statusCode;
+        const status = 400;
 
-        res.json({
+        res.status(status).json({
           status,
           err
         });
@@ -158,6 +184,7 @@ class userRouter {
 
   routes() {
     this.router.get("/", this.getUsers);
+    this.router.get("/me", auth, this.getCurrentUser);
     this.router.get("/:username", this.getUser);
     this.router.post("/", this.createUser);
     this.router.put("/:username", auth, this.updateUser);

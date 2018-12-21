@@ -27,12 +27,6 @@ const NavStyle = styled.nav`
     text-decoration: none;
     padding: 0 1rem;
   }
-
-  // grid-template-rows: auto auto 1fr;
-  // grid-template-areas:
-  //   "player"
-  //   "info"
-  //   "chat";
 `;
 
 const ImageStyle = styled.img`
@@ -42,34 +36,39 @@ const ImageStyle = styled.img`
   margin-right: 0.5em;
 `;
 
-const UserStyle = styled.div``;
+const UserStyle = styled.div`
+  padding: 0 1rem;
+`;
 
 class Navbar extends Component {
   render() {
     return (
       <HeaderStyle>
         <NavStyle>
-          <div>
-            <Link to="/">Home</Link>
-            {this.props.authenticated ? (
-              <React.Fragment>
-                <Link to="/logout">Log out</Link>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                <Link to="/login">Login</Link>
-                <Link to="/register">Register</Link>
-              </React.Fragment>
-            )}
-          </div>
-
+          {!this.props.isAuthenticating && (
+            <div>
+              <Link to="/">Home</Link>
+              {this.props.isAuthenticated ? (
+                <React.Fragment>
+                  <Link to="#" onClick={this.props.onLogout}>
+                    Log out
+                  </Link>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <Link to="/login">Login</Link>
+                  <Link to="/register">Register</Link>
+                </React.Fragment>
+              )}
+            </div>
+          )}
           {this.props.user && (
             <UserStyle>
               <ImageStyle
                 src="https://cdn.discordapp.com/avatars/111583925750501376/ab76e8f10416f0b30da27e9bcb955f9f.png?size=128"
                 alt="User Avatar"
               />
-              <p>715209</p>
+              <p>{this.props.user.username}</p>
             </UserStyle>
           )}
         </NavStyle>
