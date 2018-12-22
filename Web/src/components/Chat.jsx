@@ -14,11 +14,19 @@ const ChatStyle = styled.div`
   overflow: auto;
 `;
 
+const MessagesStyle = styled.div`
+  color: #e8e9f3;
+  padding: 10px;
+  overflow-y: auto;
+`;
+
 class Chat extends Component {
   render() {
     return (
       <ChatStyle>
-        <Message />
+        <MessagesStyle className="messages">
+          <Message />
+        </MessagesStyle>
         {/* <Input /> */}
       </ChatStyle>
     );

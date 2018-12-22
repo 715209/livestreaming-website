@@ -1,12 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-const MessagesStyle = styled.div`
-  color: #e8e9f3;
-  padding: 10px;
-  overflow-y: auto;
-`;
-
 const MessageStyle = styled.div`
   display: grid;
   grid-template-columns: 50px 1fr;
@@ -45,32 +39,28 @@ const ImgStyle = styled.img`
 class Message extends Component {
   render() {
     return (
-      <MessagesStyle className="messages">
-        <MessageStyle data-user="715209">
-          <ImageStyle>
-            <ImgStyle
-              src="https://cdn.discordapp.com/avatars/111583925750501376/ab76e8f10416f0b30da27e9bcb955f9f.png?size=128"
-              alt="Avatar"
-            />
-          </ImageStyle>
-          <UserInfoStyle>
-            <div className="userMessage">
-              <TimestampStyle>15:38</TimestampStyle>
-              <span>715209</span>
-              <BadgesStyle>
-                <span data-badge="moderator">MOD</span>
-              </BadgesStyle>
-            </div>
-          </UserInfoStyle>
-          <UserMessageStyle className="userMessage">
-            <span className="message">
-              <span data-a-target="chat-message-text">
-                almost weekend wooo!
-              </span>
-            </span>
-          </UserMessageStyle>
-        </MessageStyle>
-      </MessagesStyle>
+      <MessageStyle data-user="715209">
+        <ImageStyle>
+          <ImgStyle
+            src="https://cdn.discordapp.com/avatars/111583925750501376/ab76e8f10416f0b30da27e9bcb955f9f.png?size=128"
+            alt="Avatar"
+          />
+        </ImageStyle>
+        <UserInfoStyle>
+          <div className="userMessage">
+            <TimestampStyle>15:38</TimestampStyle>
+            <span>715209</span>
+            <BadgesStyle>
+              <span data-badge="moderator">MOD</span>
+            </BadgesStyle>
+          </div>
+        </UserInfoStyle>
+        <UserMessageStyle className="userMessage">
+          <span className="message">
+            <span data-a-target="chat-message-text">Another day...</span>
+          </span>
+        </UserMessageStyle>
+      </MessageStyle>
     );
   }
 }
