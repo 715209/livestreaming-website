@@ -9,6 +9,7 @@ import {
 import Navbar from "../components/Navbar";
 
 import Home from "./Home";
+import Browse from "./Browse";
 import Channel from "./Channel";
 import Login from "./Login";
 import Register from "./Register";
@@ -179,6 +180,7 @@ class App extends Component {
 
           <Switch>
             <Route path="/" exact component={Home} />
+            <Route path="/browse" exact component={Browse} />
             <Route
               path="/login"
               exact
