@@ -61,12 +61,11 @@ const InfoStyle = styled.div`
 
 class StreamCard extends Component {
   render() {
-    console.log(this.props);
     return (
       <CardStyle>
         <Link to={this.props.username}>
           <ImgStyle
-            src="https://static-cdn.jtvnw.net/previews-ttv/live_user_summit1g-1920x1080.jpg"
+            src="https://via.placeholder.com/1920x1080?text=Stream+preview"
             alt="Stream preview"
           />
           <HeaderStyle className="header">
