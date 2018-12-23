@@ -6,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f9f9f9;
 }
 
 #root {
@@ -13,7 +14,6 @@ body {
   height: 100vh;
   grid-template-columns: auto;
   grid-template-rows: auto 1fr;
-  background-color: #1a1a1d;
   grid-template-areas:
     "navbar"
     "main";
