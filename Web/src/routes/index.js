@@ -216,7 +216,15 @@ class App extends Component {
                 )
               }
             />
-            <Route path="/:id" component={Channel} />
+            <Route
+              path="/:id"
+              render={props => (
+                <Channel
+                  authenticated={this.state.isAuthenticated}
+                  {...props}
+                />
+              )}
+            />
           </Switch>
         </React.Fragment>
       </Router>

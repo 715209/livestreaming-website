@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import openSocket from "socket.io-client";
 
 import Message from "./Message";
-// import Input from "./Input";
+import Input from "./Input";
 
 const ChatStyle = styled.div`
   background-color: #354463;
@@ -21,13 +22,57 @@ const MessagesStyle = styled.div`
 `;
 
 class Chat extends Component {
+  state = {
+    messages: [],
+    socket: openSocket(process.env.REACT_APP_WS)
+  };
+
+  componentDidMount() {
+    this.state.socket.emit("subscribe", this.props.username);
+    this.state.socket.on("newMessage", message => {
+      message.timestamp = new Date(message.timestamp).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+
+      this.setState(prevState => {
+        return {
+          messages: [...prevState.messages, message]
+        };
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    // Leave the room
+    this.state.socket.emit("unsubscribe", this.props.username);
+  }
+
+  componentDidUpdate() {
+    this.messageList.scrollTop = this.messageList.scrollHeight;
+
+    if (this.state.messages.length === 100) {
+      this.setState(prevState => {
+        return {
+          messages: prevState.messages.slice(1)
+        };
+      });
+    }
+  }
+
   render() {
     return (
       <ChatStyle>
-        <MessagesStyle className="messages">
-          <Message />
+        <MessagesStyle ref={messageList => (this.messageList = messageList)}>
+          {this.state.messages.map(msg => (
+            <Message key={msg.id} {...msg} />
+          ))}
         </MessagesStyle>
-        {/* <Input /> */}
+        <Input
+          authenticated={this.props.authenticated}
+          socket={this.state.socket}
+          username={this.props.username}
+        />
       </ChatStyle>
     );
   }

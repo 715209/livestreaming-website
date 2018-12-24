@@ -78,7 +78,10 @@ class Channel extends Component {
       <AppGrid>
         <Player data={this.state} />
         <Info data={this.state} />
-        <Chat />
+        <Chat
+          authenticated={this.props.authenticated}
+          username={this.state.username}
+        />
       </AppGrid>
     );
   }

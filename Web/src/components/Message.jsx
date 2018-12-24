@@ -39,7 +39,7 @@ const ImgStyle = styled.img`
 class Message extends Component {
   render() {
     return (
-      <MessageStyle data-user="715209">
+      <MessageStyle>
         <ImageStyle>
           <ImgStyle
             src="https://cdn.discordapp.com/avatars/111583925750501376/ab76e8f10416f0b30da27e9bcb955f9f.png?size=128"
@@ -48,16 +48,18 @@ class Message extends Component {
         </ImageStyle>
         <UserInfoStyle>
           <div className="userMessage">
-            <TimestampStyle>15:38</TimestampStyle>
-            <span>715209</span>
-            <BadgesStyle>
-              <span data-badge="moderator">MOD</span>
-            </BadgesStyle>
+            <TimestampStyle>{this.props.timestamp}</TimestampStyle>
+            <span>{this.props.username}</span>
+            {this.props.admin && (
+              <BadgesStyle>
+                <span data-badge="moderator">MOD</span>
+              </BadgesStyle>
+            )}
           </div>
         </UserInfoStyle>
         <UserMessageStyle className="userMessage">
           <span className="message">
-            <span data-a-target="chat-message-text">Another day...</span>
+            <span>{this.props.message}</span>
           </span>
         </UserMessageStyle>
       </MessageStyle>
