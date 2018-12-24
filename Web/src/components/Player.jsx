@@ -7,6 +7,7 @@ const PlayerStyle = styled.div`
   display: grid;
   grid-auto-columns: 1fr;
   position: relative;
+  background-color: #000000;
 `;
 
 const VideoStyle = styled.video`
