@@ -70,11 +70,9 @@ class Player extends Component {
   // will rewrite this one day
   createHlsStream() {
     const video = this.videoPlayer;
-    const url = `${process.env.REACT_APP_HLS}/hls/${
-      this.props.data.username
-    }.m3u8`;
+    const url = `${process.env.REACT_APP_HLS}/hls/${this.props.username}.m3u8`;
 
-    if (Hls.isSupported() && this.videoPlayer && this.props.data.channel.live) {
+    if (Hls.isSupported() && this.videoPlayer && this.props.channel.live) {
       this.hls = new Hls({ liveDurationInfinity: true });
 
       this.hls.loadSource(url);
@@ -108,7 +106,7 @@ class Player extends Component {
       });
     } else if (
       video.canPlayType("application/vnd.apple.mpegurl") &&
-      this.props.data.channel.live
+      this.props.channel.live
     ) {
       video.src = url;
       video.addEventListener("loadedmetadata", () => {
@@ -223,11 +221,11 @@ class Player extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // if (!this.props.data.channel.live && this.hls) {
+    // if (!this.props.channel.live && this.hls) {
     //   this.hls.destroy();
     //   console.log("destroyed hls");
     // }
-    // if (this.props.data.channel.live && !this.hls) {
+    // if (this.props.channel.live && !this.hls) {
     //   this.createHlsStream();
     //   console.log("created hls");
     // }

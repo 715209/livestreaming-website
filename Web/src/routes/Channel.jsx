@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import MDSpinner from "react-md-spinner";
 
 import Player from "../components/Player";
 import Chat from "../components/Chat";
@@ -67,7 +68,7 @@ class Channel extends Component {
 
   render() {
     if (this.state.loading) {
-      return <h1>Loading...</h1>;
+      return <MDSpinner size={50} />;
     }
 
     if (!this.state.username) {
@@ -76,7 +77,7 @@ class Channel extends Component {
 
     return (
       <AppGrid>
-        <Player data={this.state} />
+        <Player {...this.state} />
         <Info data={this.state} />
         <Chat
           authenticated={this.props.authenticated}

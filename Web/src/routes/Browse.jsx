@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import StreamCard from "../components/StreamCard";
 import styled from "styled-components";
+import MDSpinner from "react-md-spinner";
 
 const BrowseStyle = styled.div`
   grid-area: main;
@@ -84,18 +85,18 @@ class Browse extends Component {
   }
 
   render() {
-    if (this.state.loading) {
-      return <h1>Loading...</h1>;
-    }
-
     return (
       <BrowseStyle>
         <h1>Browse</h1>
-        <CardsStyle>
-          {this.state.channels.map(channel => (
-            <StreamCard key={channel._id} {...channel} />
-          ))}
-        </CardsStyle>
+        {this.state.loading ? (
+          <MDSpinner size={50} />
+        ) : (
+          <CardsStyle>
+            {this.state.channels.map(channel => (
+              <StreamCard key={channel._id} {...channel} />
+            ))}
+          </CardsStyle>
+        )}
       </BrowseStyle>
     );
   }
