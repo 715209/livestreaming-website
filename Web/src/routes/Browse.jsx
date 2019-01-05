@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import StreamCard from "../components/StreamCard";
 import styled from "styled-components";
 import MDSpinner from "react-md-spinner";
@@ -47,7 +47,7 @@ const CardsStyle = styled.div`
   }
 `;
 
-class Browse extends Component {
+class Browse extends PureComponent {
   state = {
     loading: true,
     channels: []

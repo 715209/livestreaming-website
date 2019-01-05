@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import styled from "styled-components";
 
 const MessageStyle = styled.div`
@@ -36,8 +36,10 @@ const ImgStyle = styled.img`
   width: 40px;
 `;
 
-class Message extends Component {
+class Message extends PureComponent {
   render() {
+    const { timestamp, username, admin, message } = this.props.message;
+
     return (
       <MessageStyle>
         <ImageStyle>
@@ -48,9 +50,9 @@ class Message extends Component {
         </ImageStyle>
         <UserInfoStyle>
           <div className="userMessage">
-            <TimestampStyle>{this.props.timestamp}</TimestampStyle>
-            <span>{this.props.username}</span>
-            {this.props.admin && (
+            <TimestampStyle>{timestamp}</TimestampStyle>
+            <span>{username}</span>
+            {admin && (
               <BadgesStyle>
                 <span data-badge="moderator">MOD</span>
               </BadgesStyle>
@@ -59,7 +61,7 @@ class Message extends Component {
         </UserInfoStyle>
         <UserMessageStyle className="userMessage">
           <span className="message">
-            <span>{this.props.message}</span>
+            <span>{message}</span>
           </span>
         </UserMessageStyle>
       </MessageStyle>

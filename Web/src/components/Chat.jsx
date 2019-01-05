@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import styled from "styled-components";
 import openSocket from "socket.io-client";
 
@@ -21,7 +21,7 @@ const MessagesStyle = styled.div`
   overflow-y: auto;
 `;
 
-class Chat extends Component {
+class Chat extends PureComponent {
   state = {
     messages: [],
     socket: openSocket(process.env.REACT_APP_WS)
@@ -65,7 +65,7 @@ class Chat extends Component {
       <ChatStyle>
         <MessagesStyle ref={messageList => (this.messageList = messageList)}>
           {this.state.messages.map(msg => (
-            <Message key={msg.id} {...msg} />
+            <Message key={msg.id} message={msg} />
           ))}
         </MessagesStyle>
         <Input

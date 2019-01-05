@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import styled from "styled-components";
 
 const InputStyle = styled.div`
   background-color: #354463;
 `;
 
-class Input extends Component {
+class Input extends PureComponent {
   state = {
     input: ""
   };

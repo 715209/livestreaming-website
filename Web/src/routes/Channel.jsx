@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import styled from "styled-components";
 import MDSpinner from "react-md-spinner";
 
@@ -26,11 +26,12 @@ const AppGrid = styled.main`
   }
 `;
 
-class Channel extends Component {
+class Channel extends PureComponent {
   state = {
     loading: true,
-    username: "",
-    channel: null
+    username: null,
+    live: null,
+    title: null
   };
 
   async grabChannelData() {
@@ -48,7 +49,8 @@ class Channel extends Component {
       this.setState({
         loading: false,
         username,
-        channel
+        live: channel.live,
+        title: channel.title
       });
     } else {
       this.setState({
@@ -59,7 +61,8 @@ class Channel extends Component {
 
   componentDidMount() {
     this.grabChannelData();
-    this.interval = setInterval(() => this.grabChannelData(), 15000);
+    // this.interval = setInterval(() => this.grabChannelData(), 15000);
+    this.interval = setInterval(() => this.grabChannelData(), 1000);
   }
 
   componentWillUnmount() {
@@ -77,8 +80,12 @@ class Channel extends Component {
 
     return (
       <AppGrid>
-        <Player {...this.state} />
-        <Info data={this.state} />
+        <Player username={this.state.username} live={this.state.live} />
+        <Info
+          username={this.state.username}
+          live={this.state.live}
+          title={this.state.title}
+        />
         <Chat
           authenticated={this.props.authenticated}
           username={this.state.username}

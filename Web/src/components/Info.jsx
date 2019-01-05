@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import styled from "styled-components";
 
 const InfoStyle = styled.div`
@@ -32,7 +32,23 @@ const StatusStyle = styled.p`
   margin-left: auto;
 `;
 
-class Info extends Component {
+class Info extends PureComponent {
+  // shouldComponentUpdate(nextProps) {
+  //   if (this.props.username !== nextProps.username) {
+  //     return true;
+  //   }
+
+  //   if (this.props.channel.title !== nextProps.channel.title) {
+  //     return true;
+  //   }
+
+  //   if (this.props.channel.live !== nextProps.channel.live) {
+  //     return true;
+  //   }
+
+  //   return false;
+  // }
+
   render() {
     return (
       <InfoStyle>
@@ -40,11 +56,9 @@ class Info extends Component {
           src="https://cdn.discordapp.com/avatars/111583925750501376/ab76e8f10416f0b30da27e9bcb955f9f.png?size=128"
           alt="Channel Avatar"
         />
-        <UsernameStyle>{this.props.data.username}</UsernameStyle>
-        <PStyle>{this.props.data.channel.title}</PStyle>
-        <StatusStyle>
-          {this.props.data.channel.live ? "LIVE " : "OFFLINE "}
-        </StatusStyle>
+        <UsernameStyle>{this.props.username}</UsernameStyle>
+        <PStyle>{this.props.title}</PStyle>
+        <StatusStyle>{this.props.live ? "LIVE " : "OFFLINE "}</StatusStyle>
       </InfoStyle>
     );
   }

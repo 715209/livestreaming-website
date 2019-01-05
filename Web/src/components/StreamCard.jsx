@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -59,7 +59,7 @@ const InfoStyle = styled.div`
   }
 `;
 
-class StreamCard extends Component {
+class StreamCard extends PureComponent {
   render() {
     return (
       <CardStyle>

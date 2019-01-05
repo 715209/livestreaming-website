@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 
 // TODO: form validation and CSS
-class Login extends Component {
+class Login extends PureComponent {
   render() {
     return (
       <div>

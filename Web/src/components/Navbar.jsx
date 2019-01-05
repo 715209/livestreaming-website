@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -44,7 +44,7 @@ const UserStyle = styled.div`
   }
 `;
 
-class Navbar extends Component {
+class Navbar extends PureComponent {
   render() {
     return (
       <HeaderStyle>

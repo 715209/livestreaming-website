@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import styled from "styled-components";
 import Hls from "hls.js";
 
@@ -59,7 +59,7 @@ const PlayStyle = styled.button``;
 
 const PauseStyle = styled.button``;
 
-class Player extends Component {
+class Player extends PureComponent {
   state = {
     isMuted: true,
     isPaused: true,
@@ -72,7 +72,7 @@ class Player extends Component {
     const video = this.videoPlayer;
     const url = `${process.env.REACT_APP_HLS}/hls/${this.props.username}.m3u8`;
 
-    if (Hls.isSupported() && this.videoPlayer && this.props.channel.live) {
+    if (Hls.isSupported() && this.videoPlayer && this.props.live) {
       this.hls = new Hls({ liveDurationInfinity: true });
 
       this.hls.loadSource(url);
@@ -106,7 +106,7 @@ class Player extends Component {
       });
     } else if (
       video.canPlayType("application/vnd.apple.mpegurl") &&
-      this.props.channel.live
+      this.props.live
     ) {
       video.src = url;
       video.addEventListener("loadedmetadata", () => {
@@ -221,11 +221,11 @@ class Player extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // if (!this.props.channel.live && this.hls) {
+    // if (!this.props.live && this.hls) {
     //   this.hls.destroy();
     //   console.log("destroyed hls");
     // }
-    // if (this.props.channel.live && !this.hls) {
+    // if (this.props.live && !this.hls) {
     //   this.createHlsStream();
     //   console.log("created hls");
     // }
